@@ -1,14 +1,17 @@
 import React from 'react';
 import './App.css';
 import Table from './components/Table';
+import UsersProvider from './components/UserProvider';
 
 import 'bulma/css/bulma.min.css';
 
 function App() {
   return (
-    <div className="container">
-      <Table />
-    </div>
+    <UsersProvider>
+      <div className="container">
+        <Table />
+      </div>
+    </UsersProvider>
   );
 }
 
