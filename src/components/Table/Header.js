@@ -9,7 +9,6 @@ function Header() {
         <th>Username</th>
         <th>Phone</th>
         <th>City</th>
-        <th>Profile</th>
         <th>Destroy</th>
       </tr>
     </thead>

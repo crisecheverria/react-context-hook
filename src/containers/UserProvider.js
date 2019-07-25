@@ -2,6 +2,13 @@ import React, { useState } from 'react';
 import UsersContext from '../context';
 
 const UsersProvider = ({ children }) => {
+  const deleteUser = id => {
+    setUsers(prevState => {
+      const users = prevState.users.filter(user => user.id !== id);
+      return { ...prevState, users };
+    });
+  };
+
   const userState = {
     users: [
       {
@@ -50,7 +57,8 @@ const UsersProvider = ({ children }) => {
           bs: 'synergize scalable supply-chains'
         }
       }
-    ]
+    ],
+    deleteUser
   };
 
   const [users, setUsers] = useState(userState);
