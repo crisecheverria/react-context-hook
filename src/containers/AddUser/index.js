@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import uuid from 'uuid';
+import UsersContext from '../../context';
+import InputForm from '../../components/InputForm';
 
 const initialState = {
   id: '',
@@ -11,6 +14,7 @@ const initialState = {
 function AddUser() {
   const [showModal, setShowModal] = useState(false);
   const [values, setValues] = useState(initialState);
+  const { addUser } = useContext(UsersContext);
 
   function handleModal() {
     return setShowModal(!showModal);
@@ -21,6 +25,21 @@ function AddUser() {
       ...values,
       [name]: value
     });
+  }
+
+  function onSubmit(e) {
+    e.preventDefault();
+
+    const newUser = {
+      id: uuid(),
+      name: values.name,
+      username: values.username,
+      phone: values.phone,
+      address: { city: values.city }
+    };
+
+    addUser(newUser);
+    setValues(initialState);
   }
 
   const { name, username, phone, city } = values;
@@ -42,58 +61,38 @@ function AddUser() {
             />
           </header>
           <section className="modal-card-body">
-            <form>
-              <div className="field">
-                <label className="label">Name</label>
-                <div className="control">
-                  <input
-                    className="input"
-                    type="text"
-                    name="name"
-                    value={name}
-                    onChange={onChange}
-                  />
-                </div>
-              </div>
+            <form onSubmit={onSubmit}>
+              <InputForm
+                label="Name"
+                type="text"
+                name="name"
+                value={name}
+                onChange={onChange}
+              />
 
-              <div className="field">
-                <label className="label">Username</label>
-                <div className="control">
-                  <input
-                    className="input"
-                    type="text"
-                    name="username"
-                    value={username}
-                    onChange={onChange}
-                  />
-                </div>
-              </div>
+              <InputForm
+                label="Username"
+                type="text"
+                name="username"
+                value={username}
+                onChange={onChange}
+              />
 
-              <div className="field">
-                <label className="label">Phone</label>
-                <div className="control">
-                  <input
-                    className="input"
-                    type="text"
-                    name="phone"
-                    value={phone}
-                    onChange={onChange}
-                  />
-                </div>
-              </div>
+              <InputForm
+                label="Phone"
+                type="text"
+                name="phone"
+                value={phone}
+                onChange={onChange}
+              />
 
-              <div className="field">
-                <label className="label">City</label>
-                <div className="control">
-                  <input
-                    className="input"
-                    type="text"
-                    name="city"
-                    value={city}
-                    onChange={onChange}
-                  />
-                </div>
-              </div>
+              <InputForm
+                label="City"
+                type="text"
+                name="city"
+                value={city}
+                onChange={onChange}
+              />
 
               <button
                 className="button is-primary"
