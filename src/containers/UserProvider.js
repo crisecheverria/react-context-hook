@@ -9,6 +9,13 @@ const UsersProvider = ({ children }) => {
     });
   };
 
+  const addUser = user => {
+    setUsers(prevState => ({
+      ...prevState,
+      users: [user, ...prevState.users]
+    }));
+  };
+
   const userState = {
     users: [
       {
@@ -58,7 +65,8 @@ const UsersProvider = ({ children }) => {
         }
       }
     ],
-    deleteUser
+    deleteUser,
+    addUser
   };
 
   const [users, setUsers] = useState(userState);
